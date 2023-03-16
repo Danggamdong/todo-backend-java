@@ -1,20 +1,22 @@
 package com.example.demo;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-
-@RestController
+@RequiredArgsConstructor
+@Controller
 public class TodoController {
-	private static TodoRepository repository = null;
+	private static final TodoRepository repository = null;
 
-	TodoController(TodoRepository repository) {
-		this.repository = repository;
-	}
+	
+//	TodoController(TodoRepository repository) {
+//		this.repository = repository;
+//	}
 
 
 	public static void main(String[] args) {
-
 		Todo todaytodo = new Todo((long)1, "hanging leg raise", 0, false);
 		repository.save(todaytodo);
 	}

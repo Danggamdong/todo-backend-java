@@ -17,6 +17,7 @@ public class Todo {
     public Todo() {
 
     }
+
     public Todo(Long id, String description, int created_at, boolean is_finished) {
         this.id = id;
         this.description = description;
