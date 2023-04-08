@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,8 @@ import javax.persistence.Table;
 @Table
 @Entity
 public class Todo {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
     String description;
     int created_at;
@@ -26,7 +27,6 @@ public class Todo {
     }
 
 
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -34,6 +34,7 @@ public class Todo {
     public Long getId() {
         return id;
     }
+
     public String getDescription() {
         return description;
     }
