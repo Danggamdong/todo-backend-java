@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.dto.Todo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,7 +13,7 @@ class TodoTest {
         todo.setId((long) 1);
         final long id = todo.getId();
 
-        assertEquals((long)1, id);
+        assertEquals((long) 1, id);
     }
 
     @Test
