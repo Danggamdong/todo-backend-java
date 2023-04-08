@@ -12,7 +12,6 @@ import java.util.*;
 @RequiredArgsConstructor
 @RestController
 public class TodoController {
-
     private static TodoService service;
 
     @Autowired

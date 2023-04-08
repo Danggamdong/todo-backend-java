@@ -26,7 +26,6 @@ public class TodoRepositoryTest {
     @Test
     @DisplayName("레포지토리 저장 테스트")
     void saveTodo() {
-
         Todo todo = new Todo((long) 1, "hanging leg raise", 0, false);
         todoRepository.save(todo);
         List<Todo> listTodo = todoRepository.findAll();
@@ -40,5 +39,4 @@ public class TodoRepositoryTest {
         Assertions.assertThat(savedTodo.getId()).isNotNull();
         Assertions.assertThat(todoRepository.count()).isEqualTo(1);
     }
-
 }

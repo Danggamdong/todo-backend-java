@@ -15,9 +15,15 @@ public class TodoRepository {
         return list;
     }
 
-    public <S extends Todo> S save(S entity) {
-        list.add(entity);
-        return entity;
+    public Todo save(Todo todo) {
+        long id = todo.getId();
+        String description = todo.getDescription();
+        int created_at = todo.getCreated_at();
+        boolean is_finished = todo.isIs_finished();
+        Todo saveTodo = new Todo(id, description, created_at, is_finished);
+
+        list.add(saveTodo);
+        return saveTodo;
     }
 
     public int count() {

@@ -16,7 +16,6 @@ public class Todo {
     boolean is_finished;
 
     public Todo() {
-
     }
 
     public Todo(Long id, String description, int created_at, boolean is_finished) {

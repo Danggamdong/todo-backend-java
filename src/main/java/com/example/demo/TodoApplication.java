@@ -7,7 +7,6 @@ import java.util.Properties;
 
 @SpringBootApplication
 public class TodoApplication {
-
     public static void main(String... args) {
         Properties defaultProperties = new Properties();
         defaultProperties.put("server.port", "12345");
