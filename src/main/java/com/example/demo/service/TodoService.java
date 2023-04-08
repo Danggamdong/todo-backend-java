@@ -5,6 +5,7 @@ import com.example.demo.dto.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -18,12 +19,18 @@ public class TodoService {
     }
 
     public Todo save(Todo todo) {
-        Todo result = repository.save(todo);
-        return result;
+        return repository.save(todo);
     }
 
     public List<Todo> findAll() {
-        List<Todo> result = repository.findAll();
-        return result;
+        return repository.findAll();
+    }
+
+    public String delete(String id) {
+        return repository.delete(id);
+    }
+
+    public String update(HashMap<String, Object> updateTodo) {
+        return repository.update(updateTodo);
     }
 }

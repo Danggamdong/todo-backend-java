@@ -10,10 +10,10 @@ class TodoTest {
     @Test
     void getId() {
         final Todo todo = new Todo();
-        todo.setId((long) 1);
-        final long id = todo.getId();
+        todo.setId("1");
+        final String id = todo.getId();
 
-        assertEquals((long) 1, id);
+        assertEquals("1", id);
     }
 
     @Test
@@ -26,20 +26,20 @@ class TodoTest {
     }
 
     @Test
-    void getCreated_at() {
+    void getCreatedAt() {
         final Todo todo = new Todo();
-        todo.setCreated_at(1);
-        final int created_at = todo.getCreated_at();
+        todo.setCreatedAt(1);
+        final int createdAt = todo.getCreatedAt();
 
-        assertEquals(1, created_at);
+        assertEquals(1, createdAt);
     }
 
     @Test
     void isIs_finished() {
         final Todo todo = new Todo();
-        todo.setIs_finished(false);
-        final boolean is_finished = todo.isIs_finished();
+        todo.setFinished(false);
+        final boolean isFinished = todo.isFinished();
 
-        assertEquals(false, is_finished);
+        assertEquals(false, isFinished);
     }
 }
