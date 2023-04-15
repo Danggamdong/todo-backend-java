@@ -10,10 +10,11 @@ class TodoTest {
     @Test
     void getId() {
         final Todo todo = new Todo();
-        todo.setId("1");
+        String testId = "1";
+        todo.setId(testId);
         final String id = todo.getId();
 
-        assertEquals("1", id);
+        assertEquals(testId, id);
     }
 
     @Test
@@ -28,10 +29,11 @@ class TodoTest {
     @Test
     void getCreatedAt() {
         final Todo todo = new Todo();
-        todo.setCreatedAt(1);
+        int testCreateedAt = 1;
+        todo.setCreatedAt(testCreateedAt);
         final int createdAt = todo.getCreatedAt();
 
-        assertEquals(1, createdAt);
+        assertEquals(testCreateedAt, createdAt);
     }
 
     @Test

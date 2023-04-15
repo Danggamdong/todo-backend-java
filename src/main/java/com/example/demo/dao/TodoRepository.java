@@ -44,7 +44,7 @@ public class TodoRepository {
 
     public String update(HashMap<String, Object> updateTodo) {
         String id = (String) updateTodo.get("id");
-        int idx = 0;
+        int idx = -1;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getId() == id) {
                 idx = i;
