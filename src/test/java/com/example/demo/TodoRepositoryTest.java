@@ -26,15 +26,15 @@ public class TodoRepositoryTest {
     @Test
     @DisplayName("레포지토리 저장 테스트")
     void saveTodo() {
-        Todo todo = new Todo((long) 1, "hanging leg raise", 0, false);
+        Todo todo = new Todo("1", "Todo", "hanging leg raise", 0, 0, false);
         todoRepository.save(todo);
         List<Todo> listTodo = todoRepository.findAll();
         Todo savedTodo = listTodo.get(0);
         Assertions.assertThat(todo).isSameAs(savedTodo);
         Assertions.assertThat(todo.getId()).isEqualTo(savedTodo.getId());
         Assertions.assertThat(todo.getDescription()).isEqualTo(savedTodo.getDescription());
-        Assertions.assertThat(todo.getCreated_at()).isEqualTo(savedTodo.getCreated_at());
-        Assertions.assertThat(todo.isIs_finished()).isEqualTo(savedTodo.isIs_finished());
+        Assertions.assertThat(todo.getCreatedAt()).isEqualTo(savedTodo.getCreatedAt());
+        Assertions.assertThat(todo.isFinished()).isEqualTo(savedTodo.isFinished());
 
         Assertions.assertThat(savedTodo.getId()).isNotNull();
         Assertions.assertThat(todoRepository.count()).isEqualTo(1);

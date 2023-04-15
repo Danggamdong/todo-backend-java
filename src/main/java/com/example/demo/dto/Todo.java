@@ -10,28 +10,39 @@ import javax.persistence.Table;
 public class Todo {
     @Id
     @GeneratedValue
-    private Long id;
+    private String id;
+    String title;
     String description;
-    int created_at;
-    boolean is_finished;
+    int createdAt;
+    int finishedAt;
+    boolean isFinished;
 
     public Todo() {
     }
 
-    public Todo(Long id, String description, int created_at, boolean is_finished) {
+    public Todo(String id, String title, String description, int createdAt, int finishedAt, boolean isFinished) {
         this.id = id;
+        this.title = title;
         this.description = description;
-        this.created_at = created_at;
-        this.is_finished = is_finished;
+        this.createdAt = createdAt;
+        this.finishedAt = finishedAt;
+        this.isFinished = isFinished;
     }
 
+    public String getId() {
+        return id;
+    }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -42,31 +53,39 @@ public class Todo {
         this.description = description;
     }
 
-    public int getCreated_at() {
-        return created_at;
+    public int getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(int created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(int createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public boolean isIs_finished() {
-        return is_finished;
+    public int getFinishedAt() {
+        return finishedAt;
     }
 
-    public void setIs_finished(boolean is_finished) {
-        this.is_finished = is_finished;
+    public void setFinishedAt(int finishedAt) {
+        this.finishedAt = finishedAt;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 
     @Override
     public String toString() {
         return "Todo{" +
                 "id=" + id +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", created_at=" + created_at +
-                ", is_finished=" + is_finished +
+                ", createdAt=" + createdAt +
+                ", finishedAt=" + finishedAt +
+                ", isFinished=" + isFinished +
                 '}';
     }
-
-
 }
