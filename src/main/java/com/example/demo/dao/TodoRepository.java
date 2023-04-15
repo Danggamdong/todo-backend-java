@@ -31,14 +31,15 @@ public class TodoRepository {
     }
 
     public String delete(String id) {
-        int idx = 0;
+        int idx = -1;
         for (int i = 0; i < list.size(); i++) {
             if (id == list.get(i).getId()) {
                 idx = i;
                 break;
             }
         }
-        return list.remove(idx).getId();
+        if(idx != -1) return list.remove(idx).getId();
+        return "";
     }
 
     public String update(HashMap<String, Object> updateTodo) {
@@ -63,7 +64,8 @@ public class TodoRepository {
         if (updateTodo.get("isFinished") != null) {
             list.get(idx).setFinished((boolean) updateTodo.get("isFinished"));
         }
-        return id;
+        if(idx != -1) return list.remove(idx).getId();
+        return "";
     }
 
     public int count() {
