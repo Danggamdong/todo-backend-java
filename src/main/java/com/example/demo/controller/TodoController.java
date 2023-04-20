@@ -4,6 +4,7 @@ import com.example.demo.dto.Todo;
 import com.example.demo.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -19,6 +20,16 @@ public class TodoController {
     }
 
     public static void main(String[] args) {
+    }
+
+    @GetMapping("/")
+    @ResponseStatus(code = HttpStatus.OK, reason = "OK")
+    public void isOk() {
+    }
+
+    @GetMapping("/health")
+    @ResponseStatus(code = HttpStatus.OK, reason = "OK")
+    public void isHealth() {
     }
 
     @GetMapping("/todos")

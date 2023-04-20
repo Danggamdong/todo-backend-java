@@ -9,7 +9,7 @@ import java.util.Properties;
 public class TodoApplication {
     public static void main(String... args) {
         Properties defaultProperties = new Properties();
-        defaultProperties.put("server.port", "12345");
+        defaultProperties.put("server.port", "80");
         defaultProperties.put("server.address", "0.0.0.0");
 
         SpringApplication sa = new SpringApplication(TodoApplication.class);

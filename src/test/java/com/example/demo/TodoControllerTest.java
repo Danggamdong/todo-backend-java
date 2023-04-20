@@ -47,7 +47,7 @@ class TodoControllerTest {
 
     @Test
     @DisplayName("get test")
-    public void getmethod() throws Exception {
+    public void getMethod() throws Exception {
         List<Todo> todolist = new ArrayList<>();
         Todo todaytodo = new Todo("1", "Todo", "hanging leg raise", 0, 0, false);
         todolist.add(todaytodo);
@@ -62,11 +62,25 @@ class TodoControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    @DisplayName("health test")
+    public void getHealth() throws Exception {
+        this.mvc.perform(MockMvcRequestBuilders.get("/health"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("root test")
+    public void getRoot() throws Exception {
+        this.mvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(status().isOk());
+    }
+
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
     @Test
     @DisplayName("update test")
-    public void putmethod() throws Exception {
+    public void putMethod() throws Exception {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("description", "hanging leg raise");
 

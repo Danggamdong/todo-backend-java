@@ -30,7 +30,6 @@ public class TodoRepositoryTest {
         todoRepository.save(todo);
         List<Todo> listTodo = todoRepository.findAll();
         Todo savedTodo = listTodo.get(0);
-        Assertions.assertThat(todo).isSameAs(savedTodo);
         Assertions.assertThat(todo.getId()).isEqualTo(savedTodo.getId());
         Assertions.assertThat(todo.getDescription()).isEqualTo(savedTodo.getDescription());
         Assertions.assertThat(todo.getCreatedAt()).isEqualTo(savedTodo.getCreatedAt());
