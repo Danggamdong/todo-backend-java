@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.dto.Todo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -33,12 +34,12 @@ public class TodoRepository {
     public String delete(String id) {
         int idx = -1;
         for (int i = 0; i < list.size(); i++) {
-            if (id == list.get(i).getId()) {
+            if (list.get(i).getId().equals(id)) {
                 idx = i;
                 break;
             }
         }
-        if(idx != -1) return list.remove(idx).getId();
+        if (idx != -1) return list.remove(idx).getId();
         return "";
     }
 
@@ -46,26 +47,30 @@ public class TodoRepository {
         String id = (String) updateTodo.get("id");
         int idx = -1;
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getId() == id) {
+            if (list.get(i).getId().equals(id)) {
                 idx = i;
                 break;
             }
         }
+        if (idx == -1) return "";
 
         if (updateTodo.get("title") != null) {
-            list.get(idx).setTitle((String) updateTodo.get("title"));
+            Todo todo = list.get(idx);
+            todo.setTitle((String) updateTodo.get("title"));
         }
         if (updateTodo.get("description") != null) {
-            list.get(idx).setDescription((String) updateTodo.get("description"));
+            Todo todo = list.get(idx);
+            todo.setDescription((String) updateTodo.get("description"));
         }
         if (updateTodo.get("finishedAt") != null) {
-            list.get(idx).setFinishedAt((int) updateTodo.get("finishedAt"));
+            Todo todo = list.get(idx);
+            todo.setFinishedAt((int) updateTodo.get("finishedAt"));
         }
         if (updateTodo.get("isFinished") != null) {
-            list.get(idx).setFinished((boolean) updateTodo.get("isFinished"));
+            Todo todo = list.get(idx);
+            todo.setFinished((boolean) updateTodo.get("isFinished"));
         }
-        if(idx != -1) return list.remove(idx).getId();
-        return "";
+        return list.get(idx).getId();
     }
 
     public int count() {
