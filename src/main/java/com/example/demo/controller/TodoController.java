@@ -37,6 +37,12 @@ public class TodoController {
         return service.findAll();
     }
 
+    @GetMapping("/todos/{id}")
+    public Todo findTodo(@PathVariable("id") String id){
+        Todo todo = service.find(id);
+        return todo;
+    }
+
     @PostMapping("/todos")
     public HashMap newTodo(@RequestBody Todo newTodo) {
         HashMap hashmap = new HashMap<>();
