@@ -41,7 +41,7 @@ public class TodoDaoTest {
 
     @Test
     @DisplayName("sql select by id test")
-    void findTodo(){
+    void findTodo() {
         String id = "2";
         dao.deleteAll();
         Todo todo = new Todo(id, "Todo", "hanging leg raise", 0, 0, false);

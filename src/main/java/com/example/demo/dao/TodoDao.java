@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public class TodoDao {
     static String db = "TodoSql.db";
+
     public static void main(String[] args) {
         Connection connection = null;
         try {
@@ -19,9 +20,7 @@ public class TodoDao {
             statement.setQueryTimeout(30);
 
             statement.executeUpdate("drop table if exists Todo");
-            statement.executeUpdate("create table Todo (id TEXT, title TEXT," +
-                    " description TEXT, createdAt INTEGER," +
-                    " finishedAt INTEGER, isFinished Integer)");
+            statement.executeUpdate("create table Todo (id TEXT, title TEXT," + " description TEXT, createdAt INTEGER," + " finishedAt INTEGER, isFinished Integer)");
 
             ResultSet rs = statement.executeQuery("select * from Todo");
 
@@ -32,8 +31,7 @@ public class TodoDao {
             System.err.println(e.getMessage());
         } finally {
             try {
-                if (connection != null)
-                    connection.close();
+                if (connection != null) connection.close();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -62,8 +60,7 @@ public class TodoDao {
             System.err.println(e.getMessage());
         } finally {
             try {
-                if (connection != null)
-                    connection.close();
+                if (connection != null) connection.close();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -71,7 +68,7 @@ public class TodoDao {
         return list;
     }
 
-    public Todo save(Todo todo){
+    public Todo save(Todo todo) {
         String id = todo.getId();
         String title = todo.getTitle();
         String description = todo.getDescription();
@@ -85,15 +82,12 @@ public class TodoDao {
 
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
-            statement.executeUpdate("insert into Todo values('" + id + "','" + title + "', '"
-                    + description + "', " + createdAt + ", "
-                    + finishedAt + ", " + isFinished +")");
+            statement.executeUpdate("insert into Todo values('" + id + "','" + title + "', '" + description + "', " + createdAt + ", " + finishedAt + ", " + isFinished + ")");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
             try {
-                if (connection != null)
-                    connection.close();
+                if (connection != null) connection.close();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -102,7 +96,7 @@ public class TodoDao {
         return saveTodo;
     }
 
-    public String delete(String id){
+    public String delete(String id) {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + db);
@@ -113,8 +107,7 @@ public class TodoDao {
             System.err.println(e.getMessage());
         } finally {
             try {
-                if (connection != null)
-                    connection.close();
+                if (connection != null) connection.close();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -122,7 +115,7 @@ public class TodoDao {
         return id;
     }
 
-    public String update(HashMap<String, Object> updateTodo){
+    public String update(HashMap<String, Object> updateTodo) {
         String id = (String) updateTodo.get("id");
         Connection connection = null;
         try {
@@ -149,14 +142,14 @@ public class TodoDao {
             System.err.println(e.getMessage());
         } finally {
             try {
-                if (connection != null)
-                    connection.close();
+                if (connection != null) connection.close();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
         }
         return id;
     }
+
     public void deleteAll() {
         Connection connection = null;
         try {
@@ -169,17 +162,16 @@ public class TodoDao {
             System.err.println(e.getMessage());
         } finally {
             try {
-                if (connection != null)
-                    connection.close();
+                if (connection != null) connection.close();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
         }
     }
 
-    public int count(){
+    public int count() {
         Connection connection = null;
-        int cnt =  0;
+        int cnt = 0;
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + db);
 
@@ -195,8 +187,7 @@ public class TodoDao {
             System.err.println(e.getMessage());
         } finally {
             try {
-                if (connection != null)
-                    connection.close();
+                if (connection != null) connection.close();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
@@ -225,8 +216,7 @@ public class TodoDao {
             System.err.println(e.getMessage());
         } finally {
             try {
-                if (connection != null)
-                    connection.close();
+                if (connection != null) connection.close();
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
