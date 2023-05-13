@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dao.TodoDao;
 import com.example.demo.dao.TodoRepository;
 import com.example.demo.dto.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,26 +12,30 @@ import java.util.List;
 @Service
 public class TodoService {
 
-    private TodoRepository repository;
+    private TodoDao dao;
 
     @Autowired
-    public TodoService(TodoRepository repository) {
-        this.repository = repository;
+    public TodoService(TodoDao dao) {
+        this.dao = dao;
     }
 
     public Todo save(Todo todo) {
-        return repository.save(todo);
+        return dao.save(todo);
     }
 
     public List<Todo> findAll() {
-        return repository.findAll();
+        return dao.findAll();
     }
 
     public String delete(String id) {
-        return repository.delete(id);
+        return dao.delete(id);
     }
 
     public String update(HashMap<String, Object> updateTodo) {
-        return repository.update(updateTodo);
+        return dao.update(updateTodo);
+    }
+
+    public Todo find(String id) {
+        return dao.find(id);
     }
 }

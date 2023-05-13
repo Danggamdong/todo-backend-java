@@ -1,8 +1,6 @@
 package com.example.demo.dao;
 
 import com.example.demo.dto.Todo;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
