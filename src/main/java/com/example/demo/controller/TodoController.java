@@ -38,7 +38,7 @@ public class TodoController {
     }
 
     @GetMapping("/todos/{id}")
-    public Todo findTodo(@PathVariable("id") String id){
+    public Todo findTodo(@PathVariable("id") String id) {
         Todo todo = service.find(id);
         return todo;
     }

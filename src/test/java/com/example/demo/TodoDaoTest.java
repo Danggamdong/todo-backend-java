@@ -1,9 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.dao.TodoDao;
+import com.example.demo.dao.TodoDaoImpl;
 import com.example.demo.dto.Todo;
 import org.assertj.core.api.Assertions;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ import java.util.List;
 @SpringBootTest
 public class TodoDaoTest {
     @Autowired
-    TodoDao dao;
+    TodoDaoImpl dao;
 
     @Before
     public void cleanup() {
@@ -67,7 +66,6 @@ public class TodoDaoTest {
         hashMap.put("title", newTitle);
         String id = dao.update(hashMap);
         List<Todo> todoList = dao.findAll();
-        System.out.println(dao.findAll().size());
         Todo updatedTodo = todoList.get(0);
 
         Assertions.assertThat(id).isEqualTo(updateTodo.getId());

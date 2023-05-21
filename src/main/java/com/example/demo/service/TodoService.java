@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.TodoDao;
-import com.example.demo.dao.TodoRepository;
 import com.example.demo.dto.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
