@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest
-public class TodoDaoTest {
+public class TodoDaoImplTest {
     @Autowired
     TodoDaoImpl dao;
 
