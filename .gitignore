@@ -5,6 +5,7 @@
 *.jar
 *.sw?
 *.run
+*.db
 *~
 .#*
 .*.md.html
