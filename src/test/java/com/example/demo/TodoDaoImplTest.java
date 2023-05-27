@@ -57,8 +57,9 @@ public class TodoDaoImplTest {
     @Test
     @DisplayName("sql update test")
     void updateTodo() {
+        String description = "hanging leg raise";
         dao.deleteAll();
-        Todo updateTodo = new Todo("2", "Todo", "hanging leg raise", 0, 0, false);
+        Todo updateTodo = new Todo("2", "Todo", description, 0, 0, false);
         dao.save(updateTodo);
         HashMap<String, Object> hashMap = new HashMap<>();
         String newTitle = "exercise";
@@ -71,6 +72,10 @@ public class TodoDaoImplTest {
         Assertions.assertThat(id).isEqualTo(updateTodo.getId());
         Assertions.assertThat(dao.count()).isEqualTo(1);
         Assertions.assertThat(updatedTodo.getTitle()).isEqualTo(newTitle);
+        Assertions.assertThat(updateTodo.getDescription()).isEqualTo(dao.find(id).getDescription());
+        Assertions.assertThat(updateTodo.getCreatedAt()).isEqualTo(dao.find(id).getCreatedAt());
+        Assertions.assertThat(updateTodo.isFinished()).isEqualTo(dao.find(id).isFinished());
+
 
     }
 

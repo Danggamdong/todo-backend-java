@@ -141,7 +141,7 @@ public class TodoDaoImpl implements TodoDao {
             }
             if (updateTodo.get("description") != null) {
                 String description = (String) updateTodo.get("description");
-                statement.executeUpdate("update Todo set title = '" + description + "'" + " where id = '" + id + "'");
+                statement.executeUpdate("update Todo set description = '" + description + "'" + " where id = '" + id + "'");
             }
             if (updateTodo.get("finishedAt") != null) {
                 int finishedAt = (int) updateTodo.get("finishedAt");
