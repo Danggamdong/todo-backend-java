@@ -1,9 +1,11 @@
 package com.example.demo.dao;
 
 import com.example.demo.dto.Todo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,24 +14,23 @@ import java.util.List;
 @Repository
 public class TodoDaoImpl implements TodoDao {
 
-    static String db;
+    @Autowired
+    private final DataSource dataSource;
 
-    public TodoDaoImpl(@Value("${DB_PATH}") String db) {
-        this.db = db;
-        init();
+    public TodoDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
-
     public void init() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
             statement.executeUpdate("drop table if exists Todo");
             statement.executeUpdate("create table Todo (id TEXT, title TEXT,"
                     + " description TEXT, createdAt INTEGER,"
-                    + " finishedAt INTEGER, isFinished INTEGER)");
+                    + " finishedAt INTEGER, isFinished BOOLEAN)");
 
             ResultSet rs = statement.executeQuery("select * from Todo");
 
@@ -52,7 +53,7 @@ public class TodoDaoImpl implements TodoDao {
         List<Todo> list = new ArrayList<>();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
@@ -89,7 +90,7 @@ public class TodoDaoImpl implements TodoDao {
         Connection connection = null;
         try {
             StringBuilder sql = new StringBuilder();
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
 
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
@@ -111,7 +112,7 @@ public class TodoDaoImpl implements TodoDao {
     public String delete(String id) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
 
             Statement statement = connection.createStatement();
             statement.executeUpdate("delete from Todo where id = '" + id + "'");
@@ -132,7 +133,7 @@ public class TodoDaoImpl implements TodoDao {
         String id = (String) updateTodo.get("id");
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
 
             if (updateTodo.get("title") != null) {
@@ -167,7 +168,7 @@ public class TodoDaoImpl implements TodoDao {
     public void deleteAll() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
 
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
@@ -188,7 +189,7 @@ public class TodoDaoImpl implements TodoDao {
         Connection connection = null;
         int cnt = 0;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
 
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
@@ -215,7 +216,7 @@ public class TodoDaoImpl implements TodoDao {
         Connection connection = null;
         Todo todo = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
