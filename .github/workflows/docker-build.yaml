@@ -1,9 +1,9 @@
 name: docker-build
 run-name: Build a docker image by ${{ github.actor }}
 on:
-  push:
-    branches:
-      - main
+  create:
+    tags:
+      - '*'
 jobs:
   build-docker-image:
     runs-on: ubuntu-latest
