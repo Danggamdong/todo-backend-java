@@ -1,9 +1,11 @@
 package com.example.demo.dao;
 
 import com.example.demo.dto.Todo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,24 +14,23 @@ import java.util.List;
 @Repository
 public class TodoDaoImpl implements TodoDao {
 
-    static String db;
+    @Autowired
+    private final DataSource dataSource;
 
-    public TodoDaoImpl(@Value("${DB_PATH}") String db) {
-        this.db = db;
-        init();
+    public TodoDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
-
     public void init() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            statement.executeUpdate("drop table if exists Todo");
-            statement.executeUpdate("create table Todo (id TEXT, title TEXT,"
-                    + " description TEXT, createdAt INTEGER,"
-                    + " finishedAt INTEGER, isFinished INTEGER)");
+            statement.executeUpdate("drop table if exists todo");
+            statement.executeUpdate("create table todo(id TEXT, title TEXT,"
+                    + " description TEXT, created_at INTEGER,"
+                    + " finished_at INTEGER, is_finished BOOLEAN)");
 
             ResultSet rs = statement.executeQuery("select * from Todo");
 
@@ -52,18 +53,18 @@ public class TodoDaoImpl implements TodoDao {
         List<Todo> list = new ArrayList<>();
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            ResultSet rs = statement.executeQuery("select * from Todo");
+            ResultSet rs = statement.executeQuery("select * from todo");
             while (rs.next()) {
                 String id = rs.getString("id");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
-                int createdAt = rs.getInt("createdAt");
-                int finishedAt = rs.getInt("finishedAt");
-                boolean isFinished = rs.getBoolean("isFinished");
+                int createdAt = rs.getInt("created_at");
+                int finishedAt = rs.getInt("finished_at");
+                boolean isFinished = rs.getBoolean("is_finished");
                 list.add(new Todo(id, title, description, createdAt, finishedAt, isFinished));
             }
         } catch (SQLException e) {
@@ -88,12 +89,11 @@ public class TodoDaoImpl implements TodoDao {
         boolean isFinished = todo.isFinished();
         Connection connection = null;
         try {
-            StringBuilder sql = new StringBuilder();
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
 
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
-            statement.executeUpdate("insert into Todo values('" + id + "','" + title + "', '" + description + "', " + createdAt + ", " + finishedAt + ", " + isFinished + ")");
+            statement.executeUpdate("insert into todo(id, title, description, created_at, finished_at, is_finished) values ('" + id + "','" + title + "', '" + description + "', " + createdAt + ", " + finishedAt + ", " + isFinished + ")");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
@@ -111,10 +111,10 @@ public class TodoDaoImpl implements TodoDao {
     public String delete(String id) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
 
             Statement statement = connection.createStatement();
-            statement.executeUpdate("delete from Todo where id = '" + id + "'");
+            statement.executeUpdate("delete from todo where id = '" + id + "'");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
@@ -132,24 +132,24 @@ public class TodoDaoImpl implements TodoDao {
         String id = (String) updateTodo.get("id");
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
 
             if (updateTodo.get("title") != null) {
                 String title = (String) updateTodo.get("title");
-                statement.executeUpdate("update Todo set title = '" + title + "'" + " where id = '" + id + "'");
+                statement.executeUpdate("update todo set title = '" + title + "'" + " where id = '" + id + "'");
             }
             if (updateTodo.get("description") != null) {
                 String description = (String) updateTodo.get("description");
-                statement.executeUpdate("update Todo set description = '" + description + "'" + " where id = '" + id + "'");
+                statement.executeUpdate("update todo set description = '" + description + "'" + " where id = '" + id + "'");
             }
             if (updateTodo.get("finishedAt") != null) {
                 int finishedAt = (int) updateTodo.get("finishedAt");
-                statement.executeUpdate("update Todo set finishedAt = " + finishedAt + " where id = '" + id + "'");
+                statement.executeUpdate("update todo set finished_at = " + finishedAt + " where id = '" + id + "'");
             }
             if (updateTodo.get("isFinished") != null) {
                 boolean isFinished = (boolean) updateTodo.get("isFinished");
-                statement.executeUpdate("update Todo set isFinished = " + isFinished + " where id = '" + id + "'");
+                statement.executeUpdate("update todo set is_finished = " + isFinished + " where id = '" + id + "'");
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -167,11 +167,11 @@ public class TodoDaoImpl implements TodoDao {
     public void deleteAll() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
 
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
-            statement.executeUpdate("delete from Todo");
+            statement.executeUpdate("delete from todo");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
@@ -188,12 +188,12 @@ public class TodoDaoImpl implements TodoDao {
         Connection connection = null;
         int cnt = 0;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
 
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            ResultSet rs = statement.executeQuery("select * from Todo");
+            ResultSet rs = statement.executeQuery("select * from todo");
             while (rs.next()) {
                 cnt++;
             }
@@ -215,17 +215,17 @@ public class TodoDaoImpl implements TodoDao {
         Connection connection = null;
         Todo todo = null;
         try {
-            connection = DriverManager.getConnection(db);
+            connection = dataSource.getConnection();
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            ResultSet rs = statement.executeQuery("select * from Todo where id = '" + id + "'");
+            ResultSet rs = statement.executeQuery("select * from todo where id = '" + id + "'");
             if (rs.next()) {
                 String title = rs.getString("title");
                 String description = rs.getString("description");
-                int createdAt = rs.getInt("createdAt");
-                int finishedAt = rs.getInt("finishedAt");
-                boolean isFinished = rs.getBoolean("isFinished");
+                int createdAt = rs.getInt("created_at");
+                int finishedAt = rs.getInt("finished_at");
+                boolean isFinished = rs.getBoolean("is_finished");
                 todo = new Todo(id, title, description, createdAt, finishedAt, isFinished);
             }
         } catch (SQLException e) {
